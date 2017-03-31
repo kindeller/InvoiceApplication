@@ -36,7 +36,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.ContactSearch = new System.Windows.Forms.PictureBox();
             this.SurnameSearch = new System.Windows.Forms.PictureBox();
-            this.FullNameSearch = new System.Windows.Forms.PictureBox();
+            this.FirstNameSearch = new System.Windows.Forms.PictureBox();
             this.CustomerSearch = new System.Windows.Forms.PictureBox();
             this.ContactBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -56,6 +56,7 @@
             this.Paid = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Details = new System.Windows.Forms.DataGridViewButtonColumn();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.InvoiceProductListBox = new System.Windows.Forms.ListBox();
             this.button7 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.textBox16 = new System.Windows.Forms.TextBox();
@@ -69,7 +70,6 @@
             this.textBox14 = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.pictureBox7 = new System.Windows.Forms.PictureBox();
-            this.textBox13 = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -79,7 +79,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.AddressSearch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ContactSearch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SurnameSearch)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FullNameSearch)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FirstNameSearch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CustomerSearch)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InvoicesGrid)).BeginInit();
@@ -100,7 +100,7 @@
             this.panel1.Controls.Add(this.label8);
             this.panel1.Controls.Add(this.ContactSearch);
             this.panel1.Controls.Add(this.SurnameSearch);
-            this.panel1.Controls.Add(this.FullNameSearch);
+            this.panel1.Controls.Add(this.FirstNameSearch);
             this.panel1.Controls.Add(this.CustomerSearch);
             this.panel1.Controls.Add(this.ContactBox);
             this.panel1.Controls.Add(this.label7);
@@ -180,16 +180,18 @@
             this.SurnameSearch.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.SurnameSearch.TabIndex = 11;
             this.SurnameSearch.TabStop = false;
+            this.SurnameSearch.Click += new System.EventHandler(this.SurnameSearch_Click);
             // 
-            // FullNameSearch
+            // FirstNameSearch
             // 
-            this.FullNameSearch.Image = global::Invoicer.Properties.Resources.Search;
-            this.FullNameSearch.Location = new System.Drawing.Point(231, 77);
-            this.FullNameSearch.Name = "FullNameSearch";
-            this.FullNameSearch.Size = new System.Drawing.Size(20, 20);
-            this.FullNameSearch.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.FullNameSearch.TabIndex = 10;
-            this.FullNameSearch.TabStop = false;
+            this.FirstNameSearch.Image = global::Invoicer.Properties.Resources.Search;
+            this.FirstNameSearch.Location = new System.Drawing.Point(231, 77);
+            this.FirstNameSearch.Name = "FirstNameSearch";
+            this.FirstNameSearch.Size = new System.Drawing.Size(20, 20);
+            this.FirstNameSearch.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.FirstNameSearch.TabIndex = 10;
+            this.FirstNameSearch.TabStop = false;
+            this.FirstNameSearch.Click += new System.EventHandler(this.FirstNameSearch_Click);
             // 
             // CustomerSearch
             // 
@@ -224,7 +226,6 @@
             this.CustomerNumberBox.Name = "CustomerNumberBox";
             this.CustomerNumberBox.Size = new System.Drawing.Size(100, 20);
             this.CustomerNumberBox.TabIndex = 6;
-            this.CustomerNumberBox.Text = "0172563";
             // 
             // label4
             // 
@@ -348,6 +349,7 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.InvoiceProductListBox);
             this.panel3.Controls.Add(this.button7);
             this.panel3.Controls.Add(this.button6);
             this.panel3.Controls.Add(this.textBox16);
@@ -361,7 +363,6 @@
             this.panel3.Controls.Add(this.textBox14);
             this.panel3.Controls.Add(this.label17);
             this.panel3.Controls.Add(this.pictureBox7);
-            this.panel3.Controls.Add(this.textBox13);
             this.panel3.Controls.Add(this.label16);
             this.panel3.Controls.Add(this.pictureBox6);
             this.panel3.Controls.Add(this.label6);
@@ -371,6 +372,14 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(878, 188);
             this.panel3.TabIndex = 8;
+            // 
+            // InvoiceProductListBox
+            // 
+            this.InvoiceProductListBox.FormattingEnabled = true;
+            this.InvoiceProductListBox.Location = new System.Drawing.Point(339, 21);
+            this.InvoiceProductListBox.Name = "InvoiceProductListBox";
+            this.InvoiceProductListBox.Size = new System.Drawing.Size(455, 147);
+            this.InvoiceProductListBox.TabIndex = 37;
             // 
             // button7
             // 
@@ -491,15 +500,6 @@
             this.pictureBox7.TabIndex = 23;
             this.pictureBox7.TabStop = false;
             // 
-            // textBox13
-            // 
-            this.textBox13.Enabled = false;
-            this.textBox13.Location = new System.Drawing.Point(339, 48);
-            this.textBox13.Multiline = true;
-            this.textBox13.Name = "textBox13";
-            this.textBox13.Size = new System.Drawing.Size(455, 122);
-            this.textBox13.TabIndex = 22;
-            // 
             // label16
             // 
             this.label16.AutoSize = true;
@@ -562,7 +562,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.AddressSearch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ContactSearch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SurnameSearch)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FullNameSearch)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FirstNameSearch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CustomerSearch)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
@@ -587,7 +587,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.PictureBox ContactSearch;
         private System.Windows.Forms.PictureBox SurnameSearch;
-        private System.Windows.Forms.PictureBox FullNameSearch;
+        private System.Windows.Forms.PictureBox FirstNameSearch;
         private System.Windows.Forms.PictureBox CustomerSearch;
         private System.Windows.Forms.TextBox ContactBox;
         private System.Windows.Forms.Label label7;
@@ -616,7 +616,6 @@
         private System.Windows.Forms.TextBox textBox14;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.PictureBox pictureBox7;
-        private System.Windows.Forms.TextBox textBox13;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.PictureBox pictureBox6;
         private System.Windows.Forms.TextBox textBox12;
@@ -627,5 +626,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Due_Date;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Paid;
         private System.Windows.Forms.DataGridViewButtonColumn Details;
+        private System.Windows.Forms.ListBox InvoiceProductListBox;
     }
 }

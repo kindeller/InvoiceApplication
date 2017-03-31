@@ -61,7 +61,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomerDataLayer.cs" />
+    <Compile Include="CustomerSelection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomerSelection.Designer.cs">
+      <DependentUpon>CustomerSelection.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataSetObject.cs">
       <DependentUpon>DataSetObject.xsd</DependentUpon>
     </Compile>
@@ -84,6 +89,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CustomerSelection.resx">
+      <DependentUpon>CustomerSelection.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Invoicer.resx">
       <DependentUpon>Invoicer.cs</DependentUpon>
     </EmbeddedResource>
@@ -153,6 +161,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\InvoiceDAL\InvoicerDAL.csproj">
+      <Project>{1e730b87-1111-4dc9-bbe0-255133186669}</Project>
+      <Name>InvoicerDAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

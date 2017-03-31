@@ -1,0 +1,14 @@
+G:\TAFE\.net (C#)\Invoicer\Application\InvoiceDAL\obj\Debug\InvoicerDAL.csprojResolveAssemblyReference.cache
+G:\TAFE\.net (C#)\Invoicer\Application\InvoiceDAL\bin\Debug\InvoiceDAL.dll.config
+G:\TAFE\.net (C#)\Invoicer\Application\InvoiceDAL\bin\Debug\InvoiceDAL.dll
+G:\TAFE\.net (C#)\Invoicer\Application\InvoiceDAL\bin\Debug\InvoiceDAL.pdb
+G:\TAFE\.net (C#)\Invoicer\Application\InvoiceDAL\bin\Debug\MySql.Data.dll
+G:\TAFE\.net (C#)\Invoicer\Application\InvoiceDAL\obj\Debug\InvoiceDAL.dll
+G:\TAFE\.net (C#)\Invoicer\Application\InvoiceDAL\obj\Debug\InvoiceDAL.pdb
+E:\TAFE\.net (C#)\Invoicer\Application\InvoiceDAL\bin\Debug\InvoiceDAL.dll.config
+E:\TAFE\.net (C#)\Invoicer\Application\InvoiceDAL\bin\Debug\InvoiceDAL.dll
+E:\TAFE\.net (C#)\Invoicer\Application\InvoiceDAL\bin\Debug\InvoiceDAL.pdb
+E:\TAFE\.net (C#)\Invoicer\Application\InvoiceDAL\bin\Debug\MySql.Data.dll
+E:\TAFE\.net (C#)\Invoicer\Application\InvoiceDAL\obj\Debug\InvoicerDAL.csprojResolveAssemblyReference.cache
+E:\TAFE\.net (C#)\Invoicer\Application\InvoiceDAL\obj\Debug\InvoiceDAL.dll
+E:\TAFE\.net (C#)\Invoicer\Application\InvoiceDAL\obj\Debug\InvoiceDAL.pdb

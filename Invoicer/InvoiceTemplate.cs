@@ -7,65 +7,83 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using CustomerDataLayer.Models;
-using CustomerDataLayer.Services;
+using InvoicerDAL.Models;
+using InvoicerDAL.Services;
+using InvoicerDAL;
 
 namespace Invoicer
 {
     public partial class InvoiceTemplate : Form
     {
+        private readonly ICustomerService customerService;
+        CustomerSelection customerSelectionForm;
 
         public enum MessageBoxes
         {
             InvalidInput,
             NoCustFound,
             NoInvFound,
-            UnknownError
-
+            UnknownError,
+            SQLError
         }
 
-        Customer myCustomer;
-        Invoice myInvoice;
-        Customer[] Customers;
+        //Customer myCustomer;
+        //Invoice myInvoice;
+        //Customer[] Customers;
 
         public InvoiceTemplate()
         {
             InitializeComponent();
-            InitiateCustomerData();
-            InitiateInvoiceData();
+            //InitiateCustomerData();
+            //InitiateInvoiceData();
+
+            customerService = new CustomerService();
         }
-        
+
         private void InvoiceTemplate_Load(object sender, EventArgs e)
         {
 
         }
 
         private void CustomerSearch_Click(object sender, EventArgs e)
+        { 
+            int id;
+            int.TryParse(CustomerNumberBox.Text, out id);
+
+            Customer customerSearch;
+            customerSearch = customerService.GetCustomerByID(id);
+
+            //if results are returned.
+            if (customerSearch != null)
+            {
+                //populate form with data
+                updateCustomerInfo(customerSearch.CustomerNumber.ToString(), customerSearch.FirstName, customerSearch.LastName, customerSearch.AddressID.ToString(), customerSearch.ContactNumber.ToString());
+            }
+            else
+            {
+                MessageBox.Show("No Customers Found!");
+            }
+
+
+        }
+
+        public void updateCustomerInfo(string id, string fn, string ln, string add, string contact)
         {
-            bool found = false;
-            clearCustomerInvoicesList();
-            //filter through customers
-            for(int i = 0; i < Customers.Length; i++)
-            {
-                //find matching customer in list
-                if (Customers[i].customerNumber == int.Parse(CustomerNumberBox.Text))
-                {
-                    //display this customer info if found
-                    //MessageBox.Show(Customers[i].firstName);
-                    //add the customer to the search results
-                    myCustomer = Customers[i];
-                    setCustomerInfo(myCustomer);
-                    found = true;
-                }
-            }
+            CustomerNumberBox.Text = id;
+            FirstNameBox.Text = fn;
+            SurnameBox.Text = ln;
+            AddressBox.Text = add;
+            ContactBox.Text = contact;
+        }
 
-            if (!found)
-            {
-               
-            }
-
-            UpdateInvoices();
-            
+        //reset form data - called before updating.
+        private void ClearInvoice()
+        {
+            CustomerNumberBox.Clear();
+            FirstNameBox.Clear();
+            SurnameBox.Clear();
+            ContactBox.Clear();
+            AddressBox.Clear();
         }
 
         private void CustomMessageBox(MessageBoxes msg)
@@ -76,13 +94,16 @@ namespace Invoicer
                     MessageBox.Show("Unknown error occured.");
                     break;
                 case MessageBoxes.InvalidInput:
-                    MessageBox.Show("Invalid input.");
+                    MessageBox.Show("Invalid Input.");
                     break;
                 case MessageBoxes.NoCustFound:
                     MessageBox.Show("No customer found!");
                     break;
                 case MessageBoxes.NoInvFound:
                     MessageBox.Show("No invoice found!");
+                    break;
+                case MessageBoxes.SQLError:
+                    MessageBox.Show("SQL Error!");
                     break;
             }
         }
@@ -92,6 +113,8 @@ namespace Invoicer
             InvoicesGrid.Rows.Clear();
         }
 
+
+        /*
         private void UpdateInvoices()
         {
             for(int i = 0; i < myCustomer.invoices.Length; i++)
@@ -120,7 +143,7 @@ namespace Invoicer
             }
 
         }
-
+        
         private void setCustomerInfo(Customer cust)
         {
             FirstNameBox.Text = cust.firstName;
@@ -252,11 +275,12 @@ namespace Invoicer
             Customers[2].invoices[2] = myInvoice;
 
         }
+        */
 
         private void InvoicesGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
-            
+
             DataGridView invoiceGrid = (DataGridView)sender;
 
 
@@ -267,7 +291,107 @@ namespace Invoicer
                 //Send this to funciton to populate invoices.
             }
         }
+
+        private void FirstNameSearch_Click(object sender, EventArgs e)
+        {
+            string nameSearch = FirstNameBox.Text;
+            List<Customer> customerList;
+
+            if (nameSearch.All(char.IsLetterOrDigit))
+            {
+                customerList = customerService.GetCustomerByFirstName(nameSearch);
+
+                if (customerList != null)
+                {
+                    if (customerList.Count <= 1)
+                    {
+                        updateCustomerInfo(customerList[0].CustomerNumber.ToString(), customerList[0].FirstName, customerList[0].LastName, customerList[0].AddressID.ToString(), customerList[0].ContactNumber.ToString());
+                    }
+                    else
+                    {
+                        //MessageBox.Show("New menu opens to select a customer out of a list.");
+                        Customer[] custArray = new Customer[customerList.Count];
+
+
+                        for(int cust = 0; cust < custArray.Length; cust++)
+                        {
+
+                            custArray[cust] = new Customer(customerList[cust].CustomerNumber, customerList[cust].FirstName, customerList[cust].LastName, customerList[cust].AddressID, customerList[cust].ContactNumber);
+                        }
+
+                        if(customerSelectionForm == null)
+                        {
+                            CustomerSelection selectionForm = new CustomerSelection(custArray, this);
+                            customerSelectionForm = selectionForm;
+                            selectionForm.Show();
+                        }
+                        else
+                        {
+                            customerSelectionForm.updateCustomerList(custArray, this);
+                            customerSelectionForm.Show();
+
+                        }
+
+                    }
+                }
+            }else
+            {
+                CustomMessageBox(MessageBoxes.InvalidInput);
+            }
+
+        }
+
+        private void SurnameSearch_Click(object sender, EventArgs e)
+        {
+            string nameSearch = SurnameBox.Text;
+            List<Customer> customerList;
+
+            if (nameSearch.All(char.IsLetterOrDigit))
+            {
+                customerList = customerService.GetCustomerByLastName(nameSearch);
+
+                if (customerList != null)
+                {
+                    if (customerList.Count <= 1)
+                    {
+                        updateCustomerInfo(customerList[0].CustomerNumber.ToString(), customerList[0].FirstName, customerList[0].LastName, customerList[0].AddressID.ToString(), customerList[0].ContactNumber.ToString());
+                    }
+                    else
+                    {
+                        //MessageBox.Show("New menu opens to select a customer out of a list.");
+                        Customer[] custArray = new Customer[customerList.Count];
+
+
+                        for (int cust = 0; cust < custArray.Length; cust++)
+                        {
+
+                            custArray[cust] = new Customer(customerList[cust].CustomerNumber, customerList[cust].FirstName, customerList[cust].LastName, customerList[cust].AddressID, customerList[cust].ContactNumber);
+                        }
+
+                        if (customerSelectionForm == null)
+                        {
+                            CustomerSelection selectionForm = new CustomerSelection(custArray, this);
+                            customerSelectionForm = selectionForm;
+                            selectionForm.Show();
+                        }
+                        else
+                        {
+                            customerSelectionForm.updateCustomerList(custArray, this);
+                            customerSelectionForm.Show();
+
+                        }
+                    }
+                }
+            }
+            else
+            {
+                CustomMessageBox(MessageBoxes.InvalidInput);
+            }
+
+        }
     }
+
+    /*
 
     public class Customer
     {
@@ -296,6 +420,8 @@ namespace Invoicer
 
     }
 
+
+    */
 
 
 

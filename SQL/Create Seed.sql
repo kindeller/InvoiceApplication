@@ -1,0 +1,53 @@
+CREATE TABLE Address (
+
+    ID INTEGER AUTO_INCREMENT PRIMARY KEY,
+    Line1 VARCHAR(50) NOT NULL,
+    Line2 VARCHAR(50) NOT NULL,
+    Line3 VARCHAR(50),
+    Town VARCHAR(50) NOT NULL,
+    Region VARCHAR(50) NOT NULL,
+    Zip VARCHAR(50) NOT NULL,
+    Country VARCHAR(50) NOT NULL
+
+);
+
+CREATE TABLE Customer (
+
+    ID INTEGER AUTO_INCREMENT PRIMARY KEY,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    AddressID INTEGER NOT NULL,
+    ContactNumber INTEGER NOT NULL,
+    CONSTRAINT FK_Customer_AddressID_Address_ID FOREIGN KEY (AddressID) REFERENCES Address(ID)
+);
+
+CREATE TABLE Invoice (
+
+	ID INTEGER AUTO_INCREMENT PRIMARY KEY,
+    CustomerID INTEGER NOT NULL,
+    TotalCost INTEGER NOT NULL,
+    Paid BOOLEAN NOT NULL,
+    DueDate DATE NOT NULL,
+    PaymentDate DATE,
+    CONSTRAINT FK_Invoice_CustomerID_Customer_ID FOREIGN KEY (CustomerID) REFERENCES Customer(ID)
+
+);
+
+CREATE TABLE Product (
+
+    ID INTEGER AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(50) UNIQUE,
+    Price INTEGER NOT NULL
+    
+);
+
+CREATE TABLE InvoiceProducts (
+
+    ID INTEGER AUTO_INCREMENT PRIMARY KEY,
+    InvoiceID INTEGER NOT NULL,
+    ProductID INTEGER NOT NULL,
+    CONSTRAINT FK_InvoiceProducts_InvoiceID_Invoice_ID FOREIGN KEY (InvoiceID) REFERENCES Invoice(ID),
+    CONSTRAINT FK_InvoiceProducts_ProductID_Product_ID FOREIGN KEY (ProductID) REFERENCES Product(ID)
+
+);
+
