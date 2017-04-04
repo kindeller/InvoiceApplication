@@ -11,15 +11,20 @@ using Invoicer;
 using InvoicerDAL.Models;
 using InvoicerDAL.Services;
 
+//commented and cleaned (04/04/2017)
+
 namespace Invoicer
 {
      public partial class CustomerSelection : Form
     {
-        Customer chosenCustomer;
+        
+        //array value representing the customers that have been returned.
         Customer[] CustomerList;
+        //parent form that initiated the window, this will be returned to after action has completed.
         InvoiceTemplate parentForm;
         
 
+        //init
         public CustomerSelection(Customer[] customerlist, InvoiceTemplate parent)
         {
             InitializeComponent();
@@ -28,6 +33,7 @@ namespace Invoicer
             parentForm = parent;
         }
 
+        //clears and updates Listbox using array
         private void populateListBox()
         {
             clearList();
@@ -37,43 +43,59 @@ namespace Invoicer
             }
         }
 
-
-        private void getCheckedCustomer()
+        //Checks list for checked customer item
+        private Customer getCheckedCustomer()
         {
-            
-            for(int cust = 0; cust < customerListBox.Items.Count; ++cust)
+            Customer chosenCustomer = null;
+
+            for (int cust = 0; cust < customerListBox.Items.Count; ++cust)
             {
+                //if checked 
                 if (customerListBox.GetItemChecked(cust))
                 {
+                    //assign item to customer variable
                     chosenCustomer = CustomerList[cust];
                 }
             }
 
+            //will return null if it failed to assign
+            return chosenCustomer;
         }
 
+        //Select customer button
         private void selectCustomer_Click(object sender, EventArgs e)
         {
+            //assign customer
+            Customer cust = getCheckedCustomer();
 
-            getCheckedCustomer();
-            if (chosenCustomer != null)
+            //if not null, update else throw error.
+            if (cust != null)
             {
-                parentForm.updateCustomerInfo(chosenCustomer.CustomerNumber.ToString(), chosenCustomer.FirstName, chosenCustomer.LastName, chosenCustomer.AddressID.ToString(), chosenCustomer.ContactNumber.ToString());
-                this.Hide();
+                // update info on main form
+                parentForm.updateCustomerInfo(cust);
+                this.Close();
             }
             else
             {
-                MessageBox.Show("Error!");
+                //catches if the customer wasnt assigned due to no selection.
+                MessageBox.Show("Error! No Customer selected.");
             }
         }
 
+
+        //Clicked when an item in the customer list box is checked
         private void customerListBox_ItemCheck(object sender, ItemCheckEventArgs e)
         {
+            //if checked
             if (e.NewValue == CheckState.Checked)
             {
+             //loop through all items
              for(int checkedValue = 0; checkedValue < customerListBox.Items.Count; ++checkedValue)
                 {
+                    //avoiding this item
                     if(e.Index != checkedValue)
                     {
+                        //and make sure they're turned off
                         customerListBox.SetItemChecked(checkedValue, false);
                     }
                 }
@@ -81,16 +103,22 @@ namespace Invoicer
 
         }
 
+
+        private void clearList()
+        {
+            customerListBox.Items.Clear();
+        }
+
+
+
+        /*  -- Redundant Function
+
         public void updateCustomerList(Customer[] custList, InvoiceTemplate parent)
         {
             parentForm = parent;
             CustomerList = custList;
             populateListBox();
         }
-
-        private void clearList()
-        {
-            customerListBox.Items.Clear();
-        }
+        */
     }
 }

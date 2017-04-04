@@ -185,7 +185,7 @@ namespace InvoicerDAL.Services
             }
             return customerList;
         }
-        
+
         public List<Invoice> GetCustomerInvoices(int customerNumber)
         {
 
@@ -196,6 +196,43 @@ namespace InvoicerDAL.Services
             return Invoices;
 
 
+        }
+
+        public Customer AddCustomer(Customer customer)
+        {
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+
+                MySqlCommand command = new MySqlCommand(
+                    "INSERT INTO Customers (FirstName, LastName)" +
+                    "VALUES (@firstName, @lastName)", conn);
+
+                MySqlParameter firstName =
+                    new MySqlParameter("@firstName", MySqlDbType.VarChar, 200);
+                MySqlParameter lastName =
+                    new MySqlParameter("@lastName", MySqlDbType.VarChar, 200);
+
+                firstName.Value = customer.FirstName;
+                lastName.Value = customer.LastName;
+
+                command.Parameters.Add(firstName);
+                command.Parameters.Add(lastName);
+
+                conn.Open();
+                command.Prepare();
+
+                int result = command.ExecuteNonQuery();
+
+                conn.Close();
+
+                if(result <= 0)
+                {
+                    customer = null;
+                }
+            }
+
+                return customer;
         }
 
     }

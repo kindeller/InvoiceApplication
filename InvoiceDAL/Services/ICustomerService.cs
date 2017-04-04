@@ -19,5 +19,7 @@ namespace InvoicerDAL.Services
         List<Customer> GetCustomerByLastName(string name);
 
         List<Invoice> GetCustomerInvoices(int customerNumber);
+
+        Customer AddCustomer(Customer customer);
     }
 }

@@ -53,3 +53,4 @@ E:\TAFE\.net (C#)\Invoicer\Application\Invoicer\obj\Debug\Invoicer.InvoiceTempla
 E:\TAFE\.net (C#)\Invoicer\Application\Invoicer\obj\Debug\Invoicer.Properties.Resources.resources
 E:\TAFE\.net (C#)\Invoicer\Application\Invoicer\obj\Debug\Invoicer.csproj.GenerateResource.Cache
 E:\TAFE\.net (C#)\Invoicer\Application\Invoicer\obj\Debug\Invoicer.CustomerSelection.resources
+G:\TAFE\.net (C#)\Invoicer\Application\Invoicer\obj\Debug\Invoicer.CustomerSelection.resources

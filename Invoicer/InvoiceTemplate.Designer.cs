@@ -75,6 +75,9 @@
             this.label6 = new System.Windows.Forms.Label();
             this.textBox12 = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.RecentSearchList = new System.Windows.Forms.ListBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AddressSearch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ContactSearch)).BeginInit();
@@ -89,6 +92,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -546,11 +550,40 @@
             this.label15.TabIndex = 18;
             this.label15.Text = "Invoice Number: ";
             // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.RecentSearchList);
+            this.panel4.Controls.Add(this.label9);
+            this.panel4.Location = new System.Drawing.Point(897, 13);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(241, 474);
+            this.panel4.TabIndex = 9;
+            // 
+            // RecentSearchList
+            // 
+            this.RecentSearchList.FormattingEnabled = true;
+            this.RecentSearchList.Location = new System.Drawing.Point(18, 50);
+            this.RecentSearchList.Name = "RecentSearchList";
+            this.RecentSearchList.Size = new System.Drawing.Size(210, 407);
+            this.RecentSearchList.TabIndex = 3;
+            this.RecentSearchList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.RecentSearchList_MouseDoubleClick);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(14, 12);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(148, 20);
+            this.label9.TabIndex = 2;
+            this.label9.Text = "Recent Searches";
+            // 
             // InvoiceTemplate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1150, 607);
+            this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -574,6 +607,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -627,5 +662,8 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn Paid;
         private System.Windows.Forms.DataGridViewButtonColumn Details;
         private System.Windows.Forms.ListBox InvoiceProductListBox;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.ListBox RecentSearchList;
+        private System.Windows.Forms.Label label9;
     }
 }
